@@ -36,37 +36,20 @@ let config = {
     }
 };
 
-let delay = 2000;
-let MAX = 0;
-let balls;
-let cursors;
-let score = 0;
-let gameOver = false;
-let scoreText;
-let playerOne;
-let playerTwo;
-let p1velocity;
-let ballvelocity;
-let ballposition;
-let ball;
+const AIDIFFICULTY = 250;
+const DELAY = 2000;
+const MAX_ALLOWED_SPEED = 900;
 let ballSpeed = 400;
-let playerOneScore;
-let playerTwoScore;
 let p1Score = 0;
 let p2Score = 0;
-let net;
-let blip;
-let MAXBALLVELOCITY_X = 0;
-let MAXBALLVELOCITY_Y = 0;
-let ball_vx_max;
-let ball_vy_max;
-let MAX_ALLOWED_SPEED = 900;
-let ball_pos_y_min = 100;
-let ball_pos_y_max = 0;
-let ball_pos_y_min_text;
-let ball_pos_y_max_text;
+let balls;
+let cursors;
+let playerOne;
+let playerTwo;
+let ball;
+let playerOneScore;
+let playerTwoScore;
 let winningText;
-const AIDIFFICULTY = 250;
 
 let game = new Phaser.Game(config);
 
@@ -168,13 +151,13 @@ function update()
         ball.setTint(0x000000);
         ball.setVelocity(0, 0);
         playerTwoScore.setText('' + (++p2Score));
-        setTimeout(() => { // The ball will be served after a brief delay
+        setTimeout(() => { // The ball will be served after a brief DELAY
             ball.setTint(0xffffff);
             ball.x = 400;
             ball.y = Phaser.Math.Between(0, 600);
             ballSpeed = 400;
             ball.setVelocity(-ballSpeed, Phaser.Math.Between(0, 400));
-        }, delay);
+        }, DELAY);
     }
 
     if (ball.body.position.x === 790) {
@@ -190,7 +173,7 @@ function update()
             ball.y = Phaser.Math.Between(0, 600);
             ballSpeed = 400;
             ball.setVelocity(ballSpeed, Phaser.Math.Between(0, 400));
-        }, delay);
+        }, DELAY);
     }
 
     // Human player input controls
