@@ -39,6 +39,9 @@ let config = {
 const AIDIFFICULTY = 250;
 const DELAY = 2000;
 const MAX_ALLOWED_SPEED = 900;
+const PADDLEHEIGHT = 50;
+const MAXBOUNCEANGLE = 2 * Math.PI/12;
+
 let ballSpeed = 400;
 let p1Score = 0;
 let p2Score = 0;
@@ -99,9 +102,18 @@ function create()
     this.sound.add('blip-score');
 
     // Create score view
-    playerOneScore = this.add.text(200, 50, '0', { fontSize: '64px', fill: '#f9f9fa' });
-    playerTwoScore = this.add.text(600, 50, '0', { fontSize: '64px', fill: '#f9f9fa' });
-    winningText    = this.add.text(200, 400, '', { fontSize: '64px', fill: '#f9f9fa' });
+    playerOneScore = this.add.text(200, 50, '0', { 
+        fontSize: '64px', 
+        fill: '#f9f9fa' 
+    });
+    playerTwoScore = this.add.text(600, 50, '0', { 
+        fontSize: '64px', 
+        fill: '#f9f9fa' 
+    });
+    winningText    = this.add.text(200, 400, '', { 
+        fontSize: '64px', 
+        fill: '#f9f9fa' 
+    });
 
     // Create collision detection
     this.physics.add.collider(ball, playerOne, hitplayerOne, null, this);
@@ -189,12 +201,11 @@ function update()
 // Physics when ball collides with paddle
 function hitplayerOne(ball, playerOne) {
     this.sound.play('blip-paddle');
-    ballSpeed = (ballSpeed + 75) > MAX_ALLOWED_SPEED ? MAX_ALLOWED_SPEED : ballSpeed + 75;
+    ballSpeed = (ballSpeed + 75) > MAX_ALLOWED_SPEED ? 
+        MAX_ALLOWED_SPEED : ballSpeed + 75;
 
     let paddle1Y = playerOne.body.position.y;
-    let PADDLEHEIGHT = 50;
     let intersectY = ball.body.position.y;
-    let MAXBOUNCEANGLE = 2 * Math.PI/12;
 
     let relativeIntersectY = (paddle1Y+(PADDLEHEIGHT/2)) - intersectY;
     let normalizedRelativeIntersectionY = (relativeIntersectY/(PADDLEHEIGHT/2));
@@ -208,11 +219,11 @@ function hitplayerOne(ball, playerOne) {
 
 function hitplayerTwo(ball, playerTwo) {
     this.sound.play('blip-paddle');
-    ballSpeed = (ballSpeed + 75) > MAX_ALLOWED_SPEED ? MAX_ALLOWED_SPEED : ballSpeed + 75;
+    ballSpeed = (ballSpeed + 75) > MAX_ALLOWED_SPEED ? 
+        MAX_ALLOWED_SPEED : ballSpeed + 75;
+
     let paddle2Y = playerTwo.body.position.y;
-    let PADDLEHEIGHT = 50;
     let intersectY = ball.body.position.y;
-    let MAXBOUNCEANGLE = 2 * Math.PI/12;
 
     let relativeIntersectY = (paddle2Y+(PADDLEHEIGHT/2)) - intersectY;
     let normalizedRelativeIntersectionY = (relativeIntersectY/(PADDLEHEIGHT/2));
@@ -226,9 +237,9 @@ function hitplayerTwo(ball, playerTwo) {
 
 function gameOverText() {
     if (p1Score === 5) {
-        winningText.setText('You    win!', { fontSize: '64px', fill: '#f9f9fa' });
+        winningText.setText('You    win!');
     } else {
-        winningText.setText('You    lose', { fontSize: '64px', fill: '#f9f9fa'} );
+        winningText.setText('You    lose');
     }
 }
 
